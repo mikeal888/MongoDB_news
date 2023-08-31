@@ -1,3 +1,4 @@
-# MongoDB_project
-1. The idea of this project is simple: Pull down S&amp;P 500 stock, and individual stocks in composition (daily data) open, close, high, low, etc and Store in collections sanp_stocks to create a database.
-2. Also pull down top 10 news stories from the data and store in collections sanp_news.
+# MongoDB_news
+
+This is a small python script that can be used to scrape some news from the NewsAPI and store them in a MongoDB database. It's a very simple script that can be used as a starting point for a more complex project i.e a news aggregator, collecting data for sentiment analysis etc.
+
