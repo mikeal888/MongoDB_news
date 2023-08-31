@@ -1,20 +1,10 @@
-"""
-Mikeal888
-
-This file contains utility functions for the project.
-
-"""
-
 from newsapi import NewsApiClient
 from pymongo import MongoClient
 from datetime import datetime
 
-
 class GetNews:
     """
-    This class contains methods for getting news from the NewsAPI.
-
-
+    This class contains methods for getting news from the NewsAPI and adding it to a MongoDB database.
     """
 
     def __init__(self, api, query, start=None, end=None) -> None:
@@ -75,10 +65,12 @@ class GetNews:
 
     def add_to_db(self, api, db_name, collection_name):
         """
-        Adds the articles to the MongoDB database.
+        Add the articles to a MongoDB database.
         """
         # Connect to the MongoDB database
         client = MongoClient(api)
+
+        # Create the database and collection
         db = client[db_name]
         collection = db[collection_name]
 
@@ -88,7 +80,7 @@ class GetNews:
         # find any added duplicates and remove them
         duplicates = collection.aggregate(
             [
-                # group on title and media
+                # group on title and media by summing the count
                 {"$group": {"_id": "$title", "count": {"$sum": 1}}},
                 {"$match": {"count": {"$gt": 1}}},
             ]
